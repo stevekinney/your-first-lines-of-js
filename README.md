@@ -93,7 +93,7 @@ There are also some cases where we don't know what the value is until the code i
 
 We just saw how we can declare variables for the very first time. But, we can also update their values later on if we need to. The first time we declare a variable, we have to use the `var` keyword. After that, we're off the hook. We could update the value of `y` by saying `y = y`—no `var` required.
 
-If you recall from the [Welcome][#welcome] section, p5.js is calling `draw()` repeatedly. This means that we can update the value of `y` each time the `draw()` was called and p5.js would draw it the next time around in its new location based on its updated values. Let's see this in action.
+If you recall from the [Welcome](#welcome) section, p5.js is calling `draw()` repeatedly. This means that we can update the value of `y` each time the `draw()` was called and p5.js would draw it the next time around in its new location based on its updated values. Let's see this in action.
 
 ```javascript
 function setup() {
@@ -162,5 +162,144 @@ function draw() {
     y = y + 1;
   }
 }
+```
+
+Now, instead of dropping past the bottom of the canvas, it will sit there peacefully. `y` will no longer be incremented as so as `y` plus the height of the box is greater than the height of the canvas itself.
+
+<p class="you-turn">
+  **Your Turn!** We've been increment `y`, but could you increment `x` as well? Have it stop moving as soon as it hits the right edge of the canvas.
+</p>
+
+## Branching Conditionals
+
+`if` statements are really good if you only want to run some code if certain conditions are met, but what if we want to get a bit more nuanced? What if we want to do one thing if the condition is met, but do something totally different if it's not? Well, JavaScript also provides us with an `else` keyword for just this sort of situation. It looks a little something like this:
+
+```js
+if (someConditionIsMet) {
+  // Do the thing.
+} else {
+  // Do the other thing.
+}
+```
+
+Let's try to implement the following functionality.
+
+- If the box hasn't hit the bottom of the canvas, increment `y`.
+- If it has, move the box back to the top of the canvas by setting `y` back to 0.
+
+```javascript
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+}
+
+var x = 10;
+var y = 0;
+var w = 10;
+var h = 10;
+
+function draw() {
+  background(255);
+  rect(x, y, w, h);
+
+  if (y + h < height) {
+    y = y + 1;
+  } else {
+    y = 0;
+  }
+}
+```
+
+<p class="your-turn">
+  **Your Turn!** Can you have it move to the right as well as then reset `x` every time it hits the right edge of the canvas?
+</p>
+
+Now, it will continue falling forever. But, let's kick it up a notch, shall we?
+
+- Set a variable called `direction` to 1.
+- If it has hit the bottom of the canvas, then mulitply `direction` by `-1`. This will effectily switch the direction that it's moving in.
+- If it has hit the top of the canvas, then also multply `direction` by `-1`.
+- Otherwise, add `direction` to `y`.
+
+We'll handle our conditionals in the opposite order and flip the conditions around a bit. First, we'll look to see if it's hitting either edge. We can use `if` and a third conditional keyword, `else if`, to check to see if it's hitting the edges. If it is, we'll turn it around. If it's not, then when move it along in the direction it was going.
+
+```javascript
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+}
+
+var x = 10;
+var y = 0;
+var w = 10;
+var h = 10;
+var direction = 1;
+
+function draw() {
+  background(255);
+  rect(x, y, w, h);
+
+  if (y + h > height) { // If "y" plus the height is more than the canvas height
+    direction = direction * -1; // Flip the sign on "direction"
+    y = y + direction;
+  } else if (y < 0) { // If "y" is less than the top of the canvas
+    direction = direction * -1;
+    y = y + direction;
+  } else {
+    y = y + direction;
+  }
+}
+```
+
+This code works, but it has a lot of repetition.
+
+<p class="your-turn">
+  **Your Turn!** You're probably not surprised at this point, but I'm going to ask you to implement the same functionality with `x` again. I encourage you to type it out instead of copying and pasting in order to build up some muscle memory.
+</p>
+
+## Creating Functions
+
+We've been calling functions throughout our time together. We even wrote two of them (e.g. `draw()` and `setup()`). But, we haven't really had a chance to talk about them. Keeping in that spirit, I'm going to kick the can down the road a little further as I change the subject to the problem we're trying to solve first.
+
+If you look up at the previous example, there is a lot of repetition. We've `y = y + direction;` three times. We programmers like acronyms. One of the ones we _really_ like is called DRY, which stands for "Don't Repeat Yourself." The more times you repeat yourself, the more likely it is that you're going to make a boo-boo. More importantly, the more times you repeat yourself, the more places you're going to have to go find and change if you need to change something about the way your program works, which is also a good opportunity for you to introduce a boo-boo. Less code is better code and functions help us package up repeated code into one nice and neat little place.
+
+If you're lucky enought to have someone who's be programming for a bit near you, then he or she probably has some strong ideas about some ways we could improve that code. Just let them know that I'm aware of those things as well and we will talk about them in a bit, but first we're going to talk a little bit about using functions to keep our code DRY.
+
+If variables are good at storing values for you to use multiple places in your program, then functions are going at storing a set of steps that you'd like to repeat multiple places in your code. Let's take a look at the syntax for writing a function.
+
+```js
+function yourAwesomeFunctionNameGoesHere(firstArgument, secondArgument, …) {
+  // You write the steps you want to happen here.
+  return someValue;
+}
+```
+
+There are a few other ways to write functions, but we're going to stay blissfully ignorant of them for the time being. Instead, let's write a function call `add()`, which takes two numbers and returns the sum.
+
+```js
+function add(a, b) {
+  return a + b;
+}
+```
+
+Now we could use that function all over the place.
+
+```js
+var three = add(1, 2);
+var four = add(2, 2);
+```
+
+Cool. There are some important thinks to note. If you want to use the result of your function, then you _must, must, must, must_ use the `return` keyword. Otherwise JavaScript thinks you don't want to return anything. We should talk a little bit about how variables work in relation to functions as well. Functions have access to anything declared outside of themselves, but anything you declare inside of a function only lives inside of that function.
+
+```js
+var message = "You are doing the thing!";
+
+function add(a, b) {
+  var sum = a + b;
+
+  alert(message); // We access to "message" in here.
+
+  return sum;
+}
+
+alert(sum); // KABOOM! We don't have access to "sum" out here.
 ```
 
