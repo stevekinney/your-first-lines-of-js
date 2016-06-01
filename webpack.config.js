@@ -14,7 +14,7 @@ var baseConfig = {
         test: /\.css$/,
         loaders: ['style', 'css?sourceMap', 'postcss?sourceMap']
       },
-      { test: /\.md$/, loader: 'html!markdown' }
+      { test: /\.md$/, loader: 'html!markdown?sanitize=false' }
     ]
   },
   plugins: [

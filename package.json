@@ -5,6 +5,7 @@
   "main": "index.html",
   "scripts": {
     "test": "webpack && mocha-phantomjs test/index.html",
+    "deploy": "./update-gh-pages.sh",
     "bundle": "webpack",
     "start": "webpack-dev-server --host 0.0.0.0"
   },

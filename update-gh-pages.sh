@@ -2,13 +2,16 @@
 
 set -eu
 
-echo "Regenerating bundle."
+echo "Regenerating bundle…"
+
+git checkout gh-pages
+git merge master
 
 rm -rf *.bundle.*
 NODE_ENV=production npm run bundle
 
-git checkout gh-pages
 git add .
 git commit -m "Rebuild site"
 
-git push gh-pages
+git push origin gh-pages
+git checkout master
