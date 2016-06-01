@@ -1,0 +1,4 @@
+[submodule "static/p5.js-widget"]
+	path = static/p5.js-widget
+	url = https://github.com/toolness/p5.js-widget.git
+	branch = gh-pages
