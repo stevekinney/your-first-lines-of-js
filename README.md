@@ -303,3 +303,157 @@ function add(a, b) {
 alert(sum); // KABOOM! We don't have access to "sum" out here.
 ```
 
+As clean and nice as our abstract `add()` funciton is, it's time to turn our attention back to the problem at hand: cleaning up our floating box. We could make a few functions to do some common tasks. There is another advantage to breaking your code out into functions that no one really talks about. When you make a function, you have to give it a name, right? These names go a long way to help make your code make sense. Remember when we made that conditional with `y + h > height`? You probably had to squint a little bit to figure out what was happning there. What if we put it in a function called `boxIsAtBottom()`. It's much clearer when you come back to this code later what it's doing.
+
+Let's make four functions:
+
+- A function called `boxIsAtBottom()`, which will return true if the box is at the bottom of the canvas.
+- A function called `boxIsAtTop()`, which will return true if the box is at the top of the canvas.
+- A function called `reverseDirection()`, which will multiply `direction` by -1.
+- A function called `moveBox()`, which will move the box along in the right direction.
+
+```javascript
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+}
+
+var x = 10;
+var y = 0;
+var w = 10;
+var h = 10;
+var direction = 1;
+
+function boxIsAtTop() {
+  return y + h > height;
+}
+
+function boxIsAtBottom() {
+  return y < 0;
+}
+
+function reverseDirection() {
+  direction = direction * -1;
+}
+
+function moveBox() {
+  y = y + direction;
+}
+
+function draw() {
+  background(255);
+  rect(x, y, w, h);
+
+  if (boxIsAtTop()) {
+    reverseDirection();
+    moveBox();
+  } else if (boxIsAtBottom()) {
+    reverseDirection();
+    moveBox();
+  } else {
+    moveBox();
+  }
+}
+```
+
+This code has some big advantages. If the process of moving the box changes, then all we have to do is modify `moveBox()` and everything else will fall into place. At the same time, moving the conditional logic into functions makes the conditional logic a lot easier to make sense of. Everyone is happy and life is good.
+
+### Maybe Don't Use `else if`
+
+A mistake I see novice developers make sometime that they're conditional logic gets overly complicated. As a rule of thumb, I try to avoid `else` and `else if` if I can avoid it. Let's consider the following code.
+
+```javascript
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+}
+
+var x = 10;
+var y = 0;
+var w = 10;
+var h = 10;
+var direction = 1;
+
+function boxIsAtTop() {
+  return y + h > height;
+}
+
+function boxIsAtBottom() {
+  return y < 0;
+}
+
+function reverseDirection() {
+  direction = direction * -1;
+}
+
+function moveBox() {
+  y = y + direction;
+}
+
+function draw() {
+  background(255);
+  rect(x, y, w, h);
+
+  if (boxIsAtTop()) {
+    reverseDirection();
+  }
+
+  if (boxIsAtBottom()) {
+    reverseDirection();
+  }
+
+  moveBox();
+}
+```
+
+We know that we want to move the box no matter what. That's why it made a guest appearance in every branch of our conditional logic. In this case, it doesn't need to live in the conditional. Since the box can't be at the top and the bottom at the same time, we can treat each condition as a seperate scenario. There are some other tricks we could use to make this code a bit more concise, but this is good enough for now.
+
+## Organizing with Objects
+
+Right now, we have one, lonely, little box. Our proud little box uses the `x`, `y`, `w`, and `h` varialbles. We call these variable "global variables" because they're not convined to any particular function. Everyone has access to them. The problem with global variables is you might run into the situation where you try to use the same name in two totally different places and it begins to get a little squirrely. This is especially likely when your variables have ridiculous names like `x`, `y`, `w`, and `height`.
+
+Let's embark on a series of steps to make it easier to support multiple boxes. One of the first things we can do is organize all of the variables that control the size and position of our box and convert them to properties on a single `block` object. Creating objects in JavaScript is super easy. You can create a new object using `{}`.
+
+Let's do this in a series of small steps. We'll start by making a brand new object and then define the properties we need on that object. Instead of having five global variables, we'll just have one (`box`, in this case). The rest will all be defined as properties on `box`.
+
+```javascript
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+}
+
+var block = {};
+block.x = 10;
+block.y = 0;
+block.width = 10;
+block.height = 10;
+block.direction = 1;
+
+function boxIsAtTop() {
+  return block.y + block.height > height;
+}
+
+function boxIsAtBottom() {
+  return block.y < 0;
+}
+
+function reverseDirection() {
+  block.direction = block.direction * -1;
+}
+
+function moveBox() {
+  block.y = block.y + block.direction;
+}
+
+function draw() {
+  background(255);
+  rect(block.x, block.y, block.width, block.height);
+
+  if (boxIsAtTop()) {
+    reverseDirection();
+  }
+
+  if (boxIsAtBottom()) {
+    reverseDirection();
+  }
+
+  moveBox();
+}
+```
