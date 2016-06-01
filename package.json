@@ -1,0 +1,38 @@
+{
+  "name": "your-first-lines-of-js",
+  "version": "1.0.0",
+  "description": "A visual and interactive tutorial for learning JavaScript.",
+  "main": "index.html",
+  "scripts": {
+    "test": "webpack && mocha-phantomjs test/index.html",
+    "bundle": "webpack",
+    "start": "webpack-dev-server --host 0.0.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stevekinney/your-first-lines-of-js.git"
+  },
+  "author": "Steve Kinney",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/stevekinney/your-first-lines-of-js/issues"
+  },
+  "homepage": "https://github.com/stevekinney/your-first-lines-of-js#readme",
+  "devDependencies": {
+    "eslint": "^2.11.1",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "autoprefixer": "^6.3.6",
+    "css-loader": "^0.23.1",
+    "html-loader": "^0.4.3",
+    "markdown-loader": "^0.1.7",
+    "marked": "^0.3.5",
+    "postcss": "^5.0.21",
+    "postcss-custom-properties": "^5.0.1",
+    "postcss-loader": "^0.9.1",
+    "style-loader": "^0.13.1",
+    "underscore": "^1.8.3",
+    "webpack": "^1.13.1"
+  }
+}
