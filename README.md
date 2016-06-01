@@ -30,9 +30,9 @@ function draw() {
 
 ## Calling a Function
 
-There are a number of functions built into the browser. For example, every browser has a function called `alert()`. When called, `alert()` will pop up an annoying little alert box that the user must dismiss before they can do anything else.
+There are a number of functions built into the browser. For example, every browser has a function called `alert()`. When called, `alert()` will pop up an annoying little alert block that the user must dismiss before they can do anything else.
 
-In a similar fashion, p5.js gives us a few functions that make drawing a bit easier. In the example below, we'll use the `rect()` function to draw a little box on our canvas.
+In a similar fashion, p5.js gives us a few functions that make drawing a bit easier. In the example below, we'll use the `rect()` function to draw a little block on our canvas.
 
 ```javascript
 function setup() {
@@ -44,7 +44,7 @@ function draw() {
 }
 ```
 
-If all went well, you should see a tiny little box to the right of the code. You just wrote your first little JavaScript program. I'm super proud of you. Now, let's talk a little bit about what you did, shall we?
+If all went well, you should see a tiny little block to the right of the code. You just wrote your first little JavaScript program. I'm super proud of you. Now, let's talk a little bit about what you did, shall we?
 
 We took a function called `rect()` and called it. The `rect()` function is more than happy to oblige us and draw a rectange, but it needs a little more information from us before it can do so. Where would we like it draw the rectange? What size rectange would we like? We need to pass this very important information along to `rect()` before it can draw the rectangle.
 
@@ -111,11 +111,11 @@ function draw() {
 }
 ```
 
-Oh, whoa. The little box is leaving a trail behind it. That's weird. Well, actually, it's not. See, our code is doing exactly what we're telling it to do. It's drawing a box at (10, 0). The next time around, it's drawing a box at (10, 1). It's never clearing away any of the previous boxes, because we never asked it to.
+Oh, whoa. The little block is leaving a trail behind it. That's weird. Well, actually, it's not. See, our code is doing exactly what we're telling it to do. It's drawing a block at (10, 0). The next time around, it's drawing a block at (10, 1). It's never clearing away any of the previous blockes, because we never asked it to.
 
 <aside>You can always start the animation over by hitting "Stop" and pressing "Play" again.</aside>
 
-So, how do we ask it to clear away the previous boxes? Well, it's kind of a cheat. We just paint a new white background over everything before we draw the next box. Check out the example below.
+So, how do we ask it to clear away the previous blockes? Well, it's kind of a cheat. We just paint a new white background over everything before we draw the next block. Check out the example below.
 
 ```javascript
 function setup() {
@@ -140,9 +140,9 @@ function draw() {
 
 ## Conditionally Executing Code
 
-One thing you might notice is that our brave little box disappears into oblivion once it passes the bottom of the canvas. This makes sense if you thin about it. We're mindlessly incrementing `y`. We don't really care if it has passed the bottom of the canvas and `rect()` dutifully draws the little box even if it's 10 inches below our feet at this point.
+One thing you might notice is that our brave little block disappears into oblivion once it passes the bottom of the canvas. This makes sense if you thin about it. We're mindlessly incrementing `y`. We don't really care if it has passed the bottom of the canvas and `rect()` dutifully draws the little block even if it's 10 inches below our feet at this point.
 
-What we want to do is take a good hard look at the value of `y` and then only increment it if it's still within the bounds of our canvas. Right now, it's 10 pixels tall. So, we want to look at the height of the canvas and the `y` coordinate plus the height of the box—good thing we stored it in the the variable `h`, eh?—and then only increment the value of `y` if it's going to be fully drawn inside of our canvas.
+What we want to do is take a good hard look at the value of `y` and then only increment it if it's still within the bounds of our canvas. Right now, it's 10 pixels tall. So, we want to look at the height of the canvas and the `y` coordinate plus the height of the block—good thing we stored it in the the variable `h`, eh?—and then only increment the value of `y` if it's going to be fully drawn inside of our canvas.
 
 ```javascript
 function setup() {
@@ -164,7 +164,7 @@ function draw() {
 }
 ```
 
-Now, instead of dropping past the bottom of the canvas, it will sit there peacefully. `y` will no longer be incremented as so as `y` plus the height of the box is greater than the height of the canvas itself.
+Now, instead of dropping past the bottom of the canvas, it will sit there peacefully. `y` will no longer be incremented as so as `y` plus the height of the block is greater than the height of the canvas itself.
 
 <p class="you-turn">
   **Your Turn!** We've been increment `y`, but could you increment `x` as well? Have it stop moving as soon as it hits the right edge of the canvas.
@@ -184,8 +184,8 @@ if (someConditionIsMet) {
 
 Let's try to implement the following functionality.
 
-- If the box hasn't hit the bottom of the canvas, increment `y`.
-- If it has, move the box back to the top of the canvas by setting `y` back to 0.
+- If the block hasn't hit the bottom of the canvas, increment `y`.
+- If it has, move the block back to the top of the canvas by setting `y` back to 0.
 
 ```javascript
 function setup() {
@@ -303,3 +303,163 @@ function add(a, b) {
 alert(sum); // KABOOM! We don't have access to "sum" out here.
 ```
 
+As clean and nice as our abstract `add()` funciton is, it's time to turn our attention back to the problem at hand: cleaning up our floating block. We could make a few functions to do some common tasks. There is another advantage to breaking your code out into functions that no one really talks about. When you make a function, you have to give it a name, right? These names go a long way to help make your code make sense. Remember when we made that conditional with `y + h > height`? You probably had to squint a little bit to figure out what was happning there. What if we put it in a function called `blockIsAtBottom()`. It's much clearer when you come back to this code later what it's doing.
+
+Let's make four functions:
+
+- A function called `blockIsAtBottom()`, which will return true if the block is at the bottom of the canvas.
+- A function called `blockIsAtTop()`, which will return true if the block is at the top of the canvas.
+- A function called `reverseDirection()`, which will multiply `direction` by -1.
+- A function called `moveBlock()`, which will move the block along in the right direction.
+
+```javascript
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+}
+
+var x = 10;
+var y = 0;
+var w = 10;
+var h = 10;
+var direction = 1;
+
+function blockIsAtTop() {
+  return y + h > height;
+}
+
+function blockIsAtBottom() {
+  return y < 0;
+}
+
+function reverseDirection() {
+  direction = direction * -1;
+}
+
+function moveBlock() {
+  y = y + direction;
+}
+
+function draw() {
+  background(255);
+  rect(x, y, w, h);
+
+  if (blockIsAtTop()) {
+    reverseDirection();
+    moveBlock();
+  } else if (blockIsAtBottom()) {
+    reverseDirection();
+    moveBlock();
+  } else {
+    moveBlock();
+  }
+}
+```
+
+This code has some big advantages. If the process of moving the block changes, then all we have to do is modify `moveBlock()` and everything else will fall into place. At the same time, moving the conditional logic into functions makes the conditional logic a lot easier to make sense of. Everyone is happy and life is good.
+
+### Maybe Don't Use `else if`
+
+A mistake I see novice developers make sometime that they're conditional logic gets overly complicated. As a rule of thumb, I try to avoid `else` and `else if` if I can avoid it. Let's consider the following code.
+
+```javascript
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+}
+
+var x = 10;
+var y = 0;
+var w = 10;
+var h = 10;
+var direction = 1;
+
+function blockIsAtTop() {
+  return y + h > height;
+}
+
+function blockIsAtBottom() {
+  return y < 0;
+}
+
+function reverseDirection() {
+  direction = direction * -1;
+}
+
+function moveBlock() {
+  y = y + direction;
+}
+
+function draw() {
+  background(255);
+  rect(x, y, w, h);
+
+  if (blockIsAtTop()) {
+    reverseDirection();
+  }
+
+  if (blockIsAtBottom()) {
+    reverseDirection();
+  }
+
+  moveBlock();
+}
+```
+
+We know that we want to move the block no matter what. That's why it made a guest appearance in every branch of our conditional logic. In this case, it doesn't need to live in the conditional. Since the block can't be at the top and the bottom at the same time, we can treat each condition as a seperate scenario. There are some other tricks we could use to make this code a bit more concise, but this is good enough for now.
+
+## Organizing with Objects
+
+Right now, we have one, lonely, little block. Our proud little block uses the `x`, `y`, `w`, and `h` varialbles. We call these variable "global variables" because they're not convined to any particular function. Everyone has access to them. The problem with global variables is you might run into the situation where you try to use the same name in two totally different places and it begins to get a little squirrely. This is especially likely when your variables have ridiculous names like `x`, `y`, `w`, and `height`.
+
+Here is a fun rule for global variables: "Use as many as you need and as few as you can get away with."
+
+Let's embark on a series of steps to make it easier to support multiple blockes. One of the first things we can do is organize all of the variables that control the size and position of our block and convert them to properties on a single `block` object. Creating objects in JavaScript is super easy. You can create a new object using `{}`.
+
+Let's do this in a series of small steps. We'll start by making a brand new object and then define the properties we need on that object. Instead of having five global variables, we'll just have one (`block`, in this case). The rest will all be defined as properties on `block`.
+
+```javascript
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+}
+
+var block = {};
+block.x = 10;
+block.y = 0;
+block.width = 10;
+block.height = 10;
+block.direction = 1;
+
+function blockIsAtTop() {
+  return block.y + block.height > height;
+}
+
+function blockIsAtBottom() {
+  return block.y < 0;
+}
+
+function reverseDirection() {
+  block.direction = block.direction * -1;
+}
+
+function moveBlock() {
+  block.y = block.y + block.direction;
+}
+
+function draw() {
+  background(255);
+  rect(block.x, block.y, block.width, block.height);
+
+  if (blockIsAtTop()) {
+    reverseDirection();
+  }
+
+  if (blockIsAtBottom()) {
+    reverseDirection();
+  }
+
+  moveBlock();
+}
+```
+
+So, we cleaned up the number of global variables. But, this is still a little wonky. Each of our functions just assumes there is only one box. Remember when we wrote that `add()` function earlier? `add()` didn't need to know about two numbers defined out there in the global scope. We passed in the numbers we wanted to add up and it used the arguments we handed it in order to get the job done.
+
+It would be cool if we could hand our functions a box to work with and they could get the job done. Sure, we have one box right now, but later on we could pass one of a dozen or two boxes into the functions.
