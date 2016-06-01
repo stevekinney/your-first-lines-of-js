@@ -64,6 +64,13 @@ pre {
   border: 1px solid var(--code-block-border);
 }
 
+p > code {
+  font-family: var(--code-font);
+  background-color: var(--code-block);
+  border: 1px solid var(--code-block-border);
+  padding: 2px 5px;
+}
+
 /* Layout */
 
 header, .container {
@@ -112,6 +119,12 @@ header, .container {
   padding: 1em;
   background-color: var(--your-turn);
   border: 1px solid var(--your-turn-border);
+}
+
+.your-turn code {
+  border: none;
+  background-color: inherit;
+  padding: 0;
 }
 
 aside {
