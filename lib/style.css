@@ -59,6 +59,7 @@ a:active {
 
 pre {
   padding: 1em;
+  font-family: var(--code-font);
   background-color: var(--code-block);
   border: 1px solid var(--code-block-border);
 }
