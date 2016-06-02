@@ -406,7 +406,7 @@ function draw() {
 
 We know that we want to move the block no matter what. That's why it made a guest appearance in every branch of our conditional logic. In this case, it doesn't need to live in the conditional. Since the block can't be at the top and the bottom at the same time, we can treat each condition as a seperate scenario. There are some other tricks we could use to make this code a bit more concise, but this is good enough for now.
 
-## Organizing with Objects
+## Organizing Your Code with Objects
 
 Right now, we have one, lonely, little block. Our proud little block uses the `x`, `y`, `w`, and `h` varialbles. We call these variable "global variables" because they're not convined to any particular function. Everyone has access to them. The problem with global variables is you might run into the situation where you try to use the same name in two totally different places and it begins to get a little squirrely. This is especially likely when your variables have ridiculous names like `x`, `y`, `w`, and `height`.
 
@@ -474,6 +474,8 @@ var block = {
 
 We'll use this syntax from this point forward.
 
+## Making Functions Reusable
+
 So, we cleaned up the number of global variables. But, this is still a little wonky. Each of our functions just assumes there is only one box. Remember when we wrote that `add()` function earlier? `add()` didn't need to know about two numbers defined out there in the global scope. We passed in the numbers we wanted to add up and it used the arguments we handed it in order to get the job done.
 
 It would be cool if we could hand our functions a box to work with and they could get the job done. Sure, we have one box right now, but later on we could pass one of a dozen or two boxes into the functions. Instead of having the functions look up at the global scope, let's pass the block in.
@@ -506,3 +508,7 @@ moveBlock(secondBlock); // Call moveBlock() with the second block.
 ```
 
 `moveBlock()` is now pretty flexible. It can take any block and move it along its merry way. It don't need to know about any block in particular. In programming parlance, we'd say that `moveBlock()` is reusable.
+
+---
+
+(To be continued. This is a work in progress. You can contribute [here](https://github.com/stevekinney/your-first-lines-of-js).)
