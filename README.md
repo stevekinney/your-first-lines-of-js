@@ -460,6 +460,49 @@ function draw() {
 }
 ```
 
+There is a more concise way of adding properties to the box. We can create the properties and set up the box at the same time.
+
+```js
+var block = {
+  x: 10,
+  y: 0,
+  width: 10,
+  height: 10,
+  direction: 1
+};
+```
+
+We'll use this syntax from this point forward.
+
 So, we cleaned up the number of global variables. But, this is still a little wonky. Each of our functions just assumes there is only one box. Remember when we wrote that `add()` function earlier? `add()` didn't need to know about two numbers defined out there in the global scope. We passed in the numbers we wanted to add up and it used the arguments we handed it in order to get the job done.
 
-It would be cool if we could hand our functions a box to work with and they could get the job done. Sure, we have one box right now, but later on we could pass one of a dozen or two boxes into the functions.
+It would be cool if we could hand our functions a box to work with and they could get the job done. Sure, we have one box right now, but later on we could pass one of a dozen or two boxes into the functions. Instead of having the functions look up at the global scope, let's pass the block in.
+
+Here is a small little example of what we're talking about.
+
+```js
+var firstBlock = { // Make a block.
+  x: 10,
+  y: 0,
+  width: 10,
+  height: 10,
+  direction: 1
+};
+
+var secondBlock = { // Make a another block.
+  x: 20,
+  y: 30,
+  width: 20,
+  height: 20,
+  direction: -1
+};
+
+function moveBlock(block) { // Define a function that takes a block as an argument.
+  block.y = block.y + block.direction;
+}
+
+moveBlock(firstBlock); // Call moveBlock() with the first block.
+moveBlock(secondBlock); // Call moveBlock() with the second block.
+```
+
+`moveBlock()` is now pretty flexible. It can take any block and move it along its merry way. It don't need to know about any block in particular. In programming parlance, we'd say that `moveBlock()` is reusable.
