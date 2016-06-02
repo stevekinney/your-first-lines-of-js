@@ -14,7 +14,15 @@ var baseConfig = {
         test: /\.css$/,
         loaders: ['style', 'css?sourceMap', 'postcss?sourceMap']
       },
-      { test: /\.md$/, loader: 'html!markdown?sanitize=false' }
+      { test: /\.md$/, loader: 'html!markdown?sanitize=false' },
+            {
+        test: /\.jsx?$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'babel',
+        query: {
+          presets: ['es2015'],
+        },
+      },
     ]
   },
   plugins: [
