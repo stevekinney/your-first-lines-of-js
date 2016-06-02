@@ -4,7 +4,7 @@ Congratulations on deciding to learn JavaScript. My job is to get you acquainted
 
 Before we can dig in, we'll need to talk a little bit about some of the tools we'll be using to learn.
 
-Throughout our time together, we’ll be using a library called [p5.js], which makes it easy to draw to this thing called a [canvas]. Canvas—like the real world thing it's named after—is something our web browser gives us to draw on if we need it. p5.js based off a project called [Processing], which you can think of a visual sketchbook for people who are into making art with code as well as for people like you who are just learning how to code for the very first (or second) time. p5.js will allow us to visually see the fruits of our labor as we go along.
+Throughout our time together, we’ll be using a library called [p5.js], which makes it easy to draw to this thing called a [canvas]. Canvas—like the real world thing it's named after—is something our web browser gives us to draw on if we need it. p5.js is based off a project called [Processing], which you can think of a visual sketchbook for people who are into making art with code as well as for people like you who are just learning how to code for the very first (or second) time. p5.js will allow us to visually see the fruits of our labor as we go along.
 
 [p5.js]: https://p5js.org "p5.js"
 [canvas]: http://diveinto.html5doctor.com/canvas.html "Dive Into HTM5 - Canvas"
@@ -140,7 +140,7 @@ function draw() {
 
 ## Conditionally Executing Code
 
-One thing you might notice is that our brave little block disappears into oblivion once it passes the bottom of the canvas. This makes sense if you thin about it. We're mindlessly incrementing `y`. We don't really care if it has passed the bottom of the canvas and `rect()` dutifully draws the little block even if it's 10 inches below our feet at this point.
+One thing you might notice is that our brave little block disappears into oblivion once it passes the bottom of the canvas. This makes sense if you think about it. We're mindlessly incrementing `y`. We don't really care if it has passed the bottom of the canvas and `rect()` dutifully draws the little block even if it's 10 inches below our feet at this point.
 
 What we want to do is take a good hard look at the value of `y` and then only increment it if it's still within the bounds of our canvas. Right now, it's 10 pixels tall. So, we want to look at the height of the canvas and the `y` coordinate plus the height of the block—good thing we stored it in the the variable `h`, eh?—and then only increment the value of `y` if it's going to be fully drawn inside of our canvas.
 
@@ -164,9 +164,9 @@ function draw() {
 }
 ```
 
-Now, instead of dropping past the bottom of the canvas, it will sit there peacefully. `y` will no longer be incremented as so as `y` plus the height of the block is greater than the height of the canvas itself.
+Now, instead of dropping past the bottom of the canvas, it will sit there peacefully. `y` will no longer be incremented as `y` plus the height of the block is greater than the height of the canvas itself.
 
-<p class="you-turn">
+<p class="your-turn">
   **Your Turn!** We've been increment `y`, but could you increment `x` as well? Have it stop moving as soon as it hits the right edge of the canvas.
 </p>
 
@@ -210,13 +210,13 @@ function draw() {
 ```
 
 <p class="your-turn">
-  **Your Turn!** Can you have it move to the right as well as then reset `x` every time it hits the right edge of the canvas?
+  **Your Turn!** Can you have it move to the right as well then reset `x` every time it hits the right edge of the canvas?
 </p>
 
 Now, it will continue falling forever. But, let's kick it up a notch, shall we?
 
 - Set a variable called `direction` to 1.
-- If it has hit the bottom of the canvas, then mulitply `direction` by `-1`. This will effectily switch the direction that it's moving in.
+- If it has hit the bottom of the canvas, then mulitply `direction` by `-1`. This will effectively switch the direction that it's moving in.
 - If it has hit the top of the canvas, then also multply `direction` by `-1`.
 - Otherwise, add `direction` to `y`.
 
@@ -263,7 +263,7 @@ If you look up at the previous example, there is a lot of repetition. We've `y =
 
 If you're lucky enought to have someone who's be programming for a bit near you, then he or she probably has some strong ideas about some ways we could improve that code. Just let them know that I'm aware of those things as well and we will talk about them in a bit, but first we're going to talk a little bit about using functions to keep our code DRY.
 
-If variables are good at storing values for you to use multiple places in your program, then functions are going at storing a set of steps that you'd like to repeat multiple places in your code. Let's take a look at the syntax for writing a function.
+If variables are good at storing values for you to use multiple places in your program, then functions are good at storing a set of steps that you'd like to repeat multiple places in your code. Let's take a look at the syntax for writing a function.
 
 ```js
 function yourAwesomeFunctionNameGoesHere(firstArgument, secondArgument, …) {
@@ -272,7 +272,7 @@ function yourAwesomeFunctionNameGoesHere(firstArgument, secondArgument, …) {
 }
 ```
 
-There are a few other ways to write functions, but we're going to stay blissfully ignorant of them for the time being. Instead, let's write a function call `add()`, which takes two numbers and returns the sum.
+There are a few other ways to write functions, but we're going to stay blissfully ignorant of them for the time being. Instead, let's write a function called `add()`, which takes two numbers and returns the sum.
 
 ```js
 function add(a, b) {
@@ -408,7 +408,7 @@ We know that we want to move the block no matter what. That's why it made a gues
 
 ## Organizing Your Code with Objects
 
-Right now, we have one, lonely, little block. Our proud little block uses the `x`, `y`, `w`, and `h` varialbles. We call these variable "global variables" because they're not convined to any particular function. Everyone has access to them. The problem with global variables is you might run into the situation where you try to use the same name in two totally different places and it begins to get a little squirrely. This is especially likely when your variables have ridiculous names like `x`, `y`, `w`, and `height`.
+Right now, we have one, lonely, little block. Our proud little block uses the `x`, `y`, `w`, and `h` varialbles. We call these variables "global variables" because they're not confined to any particular function. Everyone has access to them. The problem with global variables is you might run into the situation where you try to use the same name in two totally different places and it begins to get a little squirrely. This is especially likely when your variables have ridiculous names like `x`, `y`, `w`, and `height`.
 
 Here is a fun rule for global variables: "Use as many as you need and as few as you can get away with."
 
