@@ -46,7 +46,7 @@ function draw() {
 
 If all went well, you should see a tiny little block to the right of the code. You just wrote your first little JavaScript program. I'm super proud of you. Now, let's talk a little bit about what you did, shall we?
 
-We took a function called `rect()` and called it. The `rect()` function is more than happy to oblige us and draw a rectange, but it needs a little more information from us before it can do so. Where would we like it draw the rectange? What size rectange would we like? We need to pass this very important information along to `rect()` before it can draw the rectangle.
+We took a function called `rect()` and called it. The `rect()` function is more than happy to oblige us and draw a rectangle, but it needs a little more information from us before it can do so. Where would we like it draw the rectangle? What size rectangle would we like? We need to pass this very important information along to `rect()` before it can draw the rectangle.
 
 If you look at the example, we put four numbers between the parentheses. These are called "arguments." `rect()` takes four arguments: an `x` coordinate, a `y` coordinate, a value for the width, and a value for the height. We just used the number 10 for each of these arguments. This means that we're drawing a rectangle that is 10 pixels wide and 10 ten pixels tall at the (10, 10) position.
 
@@ -77,15 +77,15 @@ function draw() {
 ```
 
 Go ahead and adjust `x` for a bit and see how things change when you hit play. Now, that we have some syntax to talk about, let's look at it.
-We use the `var` keyword to let the JavaScript interpreter know that we're getting ready to define a variable. Then, we use an _indentifier_—`x`, in this case—to let the interpreter know the name of the variable we'd like to declare. Finally, we use `=` to assign a value to our newly created variable.
+We use the `var` keyword to let the JavaScript interpreter know that we're getting ready to define a variable. Then, we use an _identifier_—`x`, in this case—to let the interpreter know the name of the variable we'd like to declare. Finally, we use `=` to assign a value to our newly created variable.
 
 Inside of the function, can now pass `x` into `rect()`. `x` is just another name for 10. So, when `rect()` sees that it was passed `x`, it looks it up and sees, "Ah, yes. 10. Of course."
 
 <p class="your-turn">
-  **Your turn!** Can you create three more variables—`y`, `w`, and `h`—and pass them into `rect()`? (You may be tempted to call use `width` and `height` instead of `w` and `h`, but those actually have special meaning in p5.js. So, don't do that. Those variable names are, however fair game in regular JavaScript.)
+  **Your turn!** Can you create three more variables—`y`, `w`, and `h`—and pass them into `rect()`? (You may be tempted to call use `width` and `height` instead of `w` and `h`, but those actually have special meaning in p5.js. So, don't do that. Those variable names are, however, fair game in regular JavaScript.)
 </p>
 
-You might be asking yourself, why did I do all this? Couldn't I have just used the number directly? In this super simple example, that's definitely true. But, imagine we needed the `width` for more than one rectangle. Sure, we could just use the same number everywhere, but what if the requirements changed and we had to change the width of all of our rectangles. Well, if we assigned the value to a `width` variable then we could just adjust that `width` in one place and now every reference to `width` would be the newly updated value.
+You might be asking yourself, why did I do all this? Couldn't I have just used the number directly? In this simple example, that's definitely true. But, imagine we needed the `width` for more than one rectangle. Sure, we could just use the same number everywhere, but what if the requirements changed and we had to change the width of all of our rectangles. Well, if we assigned the value to a `width` variable then we could just adjust that `width` in one place and now every reference to `width` would be the newly updated value.
 
 There are also some cases where we don't know what the value is until the code is being executed. We could, for example, have some code that gets the current date and time and stores it in a variable or we could have a program that reads a file and works with the contents of that file.
 
@@ -111,11 +111,11 @@ function draw() {
 }
 ```
 
-Oh, whoa. The little block is leaving a trail behind it. That's weird. Well, actually, it's not. See, our code is doing exactly what we're telling it to do. It's drawing a block at (10, 0). The next time around, it's drawing a block at (10, 1). It's never clearing away any of the previous blockes, because we never asked it to.
+Oh, whoa. The little block is leaving a trail behind it. That's weird. Well, actually, it's not. See, our code is doing exactly what we're telling it to do. It's drawing a block at (10, 0). The next time around, it's drawing a block at (10, 1). It's never clearing away any of the previous blocks, because we never asked it to.
 
 <aside>You can always start the animation over by hitting "Stop" and pressing "Play" again.</aside>
 
-So, how do we ask it to clear away the previous blockes? Well, it's kind of a cheat. We just paint a new white background over everything before we draw the next block. Check out the example below.
+So, how do we ask it to clear away the previous blocks? Well, it's kind of a cheat. We just paint a new white background over everything before we draw the next block. Check out the example below.
 
 ```javascript
 function setup() {
@@ -167,7 +167,7 @@ function draw() {
 Now, instead of dropping past the bottom of the canvas, it will sit there peacefully. `y` will no longer be incremented as `y` plus the height of the block is greater than the height of the canvas itself.
 
 <p class="your-turn">
-  **Your Turn!** We've been increment `y`, but could you increment `x` as well? Have it stop moving as soon as it hits the right edge of the canvas.
+  **Your Turn!** We've been incrementing `y`, but could you increment `x` as well? Have it stop moving as soon as it hits the right edge of the canvas.
 </p>
 
 ## Branching Conditionals
@@ -210,14 +210,14 @@ function draw() {
 ```
 
 <p class="your-turn">
-  **Your Turn!** Can you have it move to the right as well then reset `x` every time it hits the right edge of the canvas?
+  **Your Turn!** Can you have the block move to the right as well, then reset `x` every time it hits the right edge of the canvas?
 </p>
 
-Now, it will continue falling forever. But, let's kick it up a notch, shall we?
+Now it will continue falling forever. But, let's kick it up a notch, shall we?
 
 - Set a variable called `direction` to 1.
-- If it has hit the bottom of the canvas, then mulitply `direction` by `-1`. This will effectively switch the direction that it's moving in.
-- If it has hit the top of the canvas, then also multply `direction` by `-1`.
+- If it has hit the bottom of the canvas, then multiply `direction` by `-1`. This will effectively switch the direction that it's moving in.
+- If it has hit the top of the canvas, then also multiply `direction` by `-1`.
 - Otherwise, add `direction` to `y`.
 
 We'll handle our conditionals in the opposite order and flip the conditions around a bit. First, we'll look to see if it's hitting either edge. We can use `if` and a third conditional keyword, `else if`, to check to see if it's hitting the edges. If it is, we'll turn it around. If it's not, then when move it along in the direction it was going.
@@ -261,7 +261,7 @@ We've been calling functions throughout our time together. We even wrote two of 
 
 If you look up at the previous example, there is a lot of repetition. We've `y = y + direction;` three times. We programmers like acronyms. One of the ones we _really_ like is called DRY, which stands for "Don't Repeat Yourself." The more times you repeat yourself, the more likely it is that you're going to make a boo-boo. More importantly, the more times you repeat yourself, the more places you're going to have to go find and change if you need to change something about the way your program works, which is also a good opportunity for you to introduce a boo-boo. Less code is better code and functions help us package up repeated code into one nice and neat little place.
 
-If you're lucky enought to have someone who's be programming for a bit near you, then he or she probably has some strong ideas about some ways we could improve that code. Just let them know that I'm aware of those things as well and we will talk about them in a bit, but first we're going to talk a little bit about using functions to keep our code DRY.
+If you're lucky enough to have someone who's been programming for a bit near you, then he or she probably has some strong ideas about some ways we could improve that code. Just let them know that I'm aware of those things as well and we will talk about them in a bit, but first we're going to talk a little bit about using functions to keep our code DRY.
 
 If variables are good at storing values for you to use multiple places in your program, then functions are good at storing a set of steps that you'd like to repeat multiple places in your code. Let's take a look at the syntax for writing a function.
 
@@ -287,7 +287,7 @@ var three = add(1, 2);
 var four = add(2, 2);
 ```
 
-Cool. There are some important thinks to note. If you want to use the result of your function, then you _must, must, must, must_ use the `return` keyword. Otherwise JavaScript thinks you don't want to return anything. We should talk a little bit about how variables work in relation to functions as well. Functions have access to anything declared outside of themselves, but anything you declare inside of a function only lives inside of that function.
+Cool. There are some important things to note. If you want to use the result of your function, then you _must, must, must, must_ use the `return` keyword. Otherwise JavaScript thinks you don't want to return anything. We should talk a little bit about how variables work in relation to functions as well. Functions have access to anything declared outside of themselves, but anything you declare inside of a function only lives inside of that function.
 
 ```js
 var message = "You are doing the thing!";
@@ -303,7 +303,7 @@ function add(a, b) {
 alert(sum); // KABOOM! We don't have access to "sum" out here.
 ```
 
-As clean and nice as our abstract `add()` funciton is, it's time to turn our attention back to the problem at hand: cleaning up our floating block. We could make a few functions to do some common tasks. There is another advantage to breaking your code out into functions that no one really talks about. When you make a function, you have to give it a name, right? These names go a long way to help make your code make sense. Remember when we made that conditional with `y + h > height`? You probably had to squint a little bit to figure out what was happning there. What if we put it in a function called `blockIsAtBottom()`. It's much clearer when you come back to this code later what it's doing.
+As clean and nice as our abstract `add()` function is, it's time to turn our attention back to the problem at hand: cleaning up our floating block. We could make a few functions to do some common tasks. There is another advantage to breaking your code out into functions that no one really talks about. When you make a function, you have to give it a name, right? These names go a long way to help make your code make sense. Remember when we made that conditional with `y + h > height`? You probably had to squint a little bit to figure out what was happening there. What if we put it in a function called `blockIsAtBottom()`. It's much clearer when you come back to this code later what it's doing.
 
 Let's make four functions:
 
@@ -359,7 +359,7 @@ This code has some big advantages. If the process of moving the block changes, t
 
 ### Maybe Don't Use `else if`
 
-A mistake I see novice developers make sometime that they're conditional logic gets overly complicated. As a rule of thumb, I try to avoid `else` and `else if` if I can avoid it. Let's consider the following code.
+A mistake I sometimes see novice developers make is that their conditional logic gets overly complicated. As a rule of thumb, I try to avoid `else` and `else if` if I can avoid it. Let's consider the following code.
 
 ```javascript
 function setup() {
@@ -404,7 +404,7 @@ function draw() {
 }
 ```
 
-We know that we want to move the block no matter what. That's why it made a guest appearance in every branch of our conditional logic. In this case, it doesn't need to live in the conditional. Since the block can't be at the top and the bottom at the same time, we can treat each condition as a seperate scenario. There are some other tricks we could use to make this code a bit more concise, but this is good enough for now.
+We know that we want to move the block no matter what. That's why it made a guest appearance in every branch of our conditional logic. In this case, it doesn't need to live in the conditional. Since the block can't be at the top and the bottom at the same time, we can treat each condition as a separate scenario. There are some other tricks we could use to make this code a bit more concise, but this is good enough for now.
 
 ## Organizing Your Code with Objects
 
@@ -412,9 +412,9 @@ Right now, we have one, lonely, little block. Our proud little block uses the `x
 
 Here is a fun rule for global variables: "Use as many as you need and as few as you can get away with."
 
-Let's embark on a series of steps to make it easier to support multiple blockes. One of the first things we can do is organize all of the variables that control the size and position of our block and convert them to properties on a single `block` object. Creating objects in JavaScript is super easy. You can create a new object using `{}`.
+Let's embark on a series of steps to make it easier to support multiple blocks. One of the first things we can do is organize all of the variables that control the size and position of our block and convert them to properties on a single `block` object. Creating objects in JavaScript is easy. You can create a new object using `{}`.
 
-Let's do this in a series of small steps. We'll start by making a brand new object and then define the properties we need on that object. Instead of having five global variables, we'll just have one (`block`, in this case). The rest will all be defined as properties on `block`.
+Let's do this in a series of small steps. We'll start by making a brand new object and will then define the properties we need on that object. Instead of having five global variables, we'll just have one (`block`, in this case). The rest will all be defined as properties on `block`.
 
 ```javascript
 function setup() {
@@ -476,7 +476,7 @@ We'll use this syntax from this point forward.
 
 ## Making Functions Reusable
 
-So, we cleaned up the number of global variables. But, this is still a little wonky. Each of our functions just assumes there is only one box. Remember when we wrote that `add()` function earlier? `add()` didn't need to know about two numbers defined out there in the global scope. We passed in the numbers we wanted to add up and it used the arguments we handed it in order to get the job done.
+So, we cleaned up the number of global variables, but this is still a little wonky. Each of our functions just assumes there is only one box. Remember when we wrote that `add()` function earlier? `add()` didn't need to know about two numbers defined out there in the global scope. We passed in the numbers we wanted to add up and it used the arguments we handed it in order to get the job done.
 
 It would be cool if we could hand our functions a box to work with and they could get the job done. Sure, we have one box right now, but later on we could pass one of a dozen or two boxes into the functions. Instead of having the functions look up at the global scope, let's pass the block in.
 
@@ -507,7 +507,7 @@ moveBlock(firstBlock); // Call moveBlock() with the first block.
 moveBlock(secondBlock); // Call moveBlock() with the second block.
 ```
 
-`moveBlock()` is now pretty flexible. It can take any block and move it along its merry way. It don't need to know about any block in particular. In programming parlance, we'd say that `moveBlock()` is reusable.
+`moveBlock()` is now pretty flexible. It can take any block and move it along its merry way—it don't need to know about any block in particular. In programming parlance, we'd say that `moveBlock()` is reusable.
 
 ---
 
